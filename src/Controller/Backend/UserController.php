@@ -2,13 +2,17 @@
 
 namespace App\Controller\Backend;
 
+use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/users', name:'.admin.users')]
+#[Route('/admin/users', name:'admin.users')]
 class UserController extends AbstractController
 {
       public function __construct(
@@ -21,6 +25,29 @@ class UserController extends AbstractController
     {
         return $this->render('Backend/User/index.html.twig', [
             'users' => $repo->findAll(),
+        ]);
+    }
+
+    #[Route('{id}/update', name:'.update', methods:['GET', 'POST'])]
+    public function update(?User $user, Request $request): Response|RedirectResponse
+    {
+        if (!$user) {
+            $this->addFlash('error', 'Utilisateur introuvable');
+
+            return $this->redirectToRoute('admin.users.index');
+        }
+        $form = $this->createForm(UserType::class, $user, ['isAdmin' => true]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash('success', 'Utilisateur mise à jour avec succès.');
+
+            return $this->redirectToRoute('admin.users.index');
+        }
+        return $this->render('Backend\User\update.html.twig', [
+            'form' => $form,
         ]);
     }
 }

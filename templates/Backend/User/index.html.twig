@@ -7,7 +7,8 @@
 {% block body %}
 	<section class="container mt-2 gy-4">
 		<h1 class="text-center">Administration des utilisateurs</h1>
-		<div class="row mt-2">
+        <a href="{{ path('register') }}" class="btn btn-primary">Créer un utilisateur</a>
+		<div class="row mt-2 gy-4">
 			{% for user in users %}
 				<div class="col-md-4">
 					<div class="card">
@@ -23,7 +24,7 @@
 							{{ user.roles|join(', ')|replace({'ROLE_': ' '})|title }}
 						</p>
 						<div class="card-btn">
-							<a href="#" class="btn btn-warning">Modifier</a>
+							<a href="{{ path('admin.users.update', {id: user.id}) }}" class="btn btn-warning">Modifier</a>
 							
 						</div>
 					</div>
