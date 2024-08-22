@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Administration des utilisateurs
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2 gy-4">
+		<h1 class="text-center">Administration des utilisateurs</h1>
+		<div class="row mt-2">
+			{% for user in users %}
+				<div class="col-md-4">
+					<div class="card">
+						<h4>
+							{{ user.fullName }}
+						</h4>
+						<p>
+							Email :
+							{{ user.email }}
+						</p>
+						<p>
+							Roles :
+							{{ user.roles|join(', ')|replace({'ROLE_': ' '})|title }}
+						</p>
+						<div class="card-btn">
+							<a href="#" class="btn btn-warning">Modifier</a>
+							
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}
