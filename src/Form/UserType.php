@@ -44,7 +44,7 @@ class UserType extends AbstractType
                     ]
                 ],
                 'second_options' => [
-                    'Confirmer le mot de passe:',
+                    'label' => 'Confirmer le mot de passe:',
                     'mapped' => false,
                 ],
             ])
