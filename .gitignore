@@ -21,17 +21,17 @@
 phpstan.neon
 ###< phpstan/phpstan ###
 
-<<<<<<< HEAD
+
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
 node_modules
-=======
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
->>>>>>> ae50af9d02baad5f785240699510d79a67bfaba3
+
